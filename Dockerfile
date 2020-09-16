@@ -1,6 +1,6 @@
-FROM sorintlab/stolon:v0.15.0-pg12
+FROM sorintlab/stolon:v0.16.0-pg12
 
-ENV WALG_VERSION v0.2.9
+ENV WALG_VERSION v0.2.15
 
 ADD https://github.com/wal-g/wal-g/releases/download/${WALG_VERSION}/wal-g.linux-amd64.tar.gz /tmp
 RUN cd /tmp && \
