@@ -1,13 +1,17 @@
-FROM sorintlab/stolon:v0.16.0-pg12
+FROM sorintlab/stolon:v0.17.0-pg12
 
-ENV WALG_VERSION v0.2.15
+ENV WALG_VERSION v1.1
+ENV RELEASE_FILE_NAME wal-g-pg-ubuntu-18.04-amd64.tar.gz
+ENV EXTRACTED_FILE_NAME wal-g-pg-ubuntu-18.04-amd64
+ENV EXECUTABLE_DESTINATION /usr/local/bin/wal-g
 
-ADD https://github.com/wal-g/wal-g/releases/download/${WALG_VERSION}/wal-g.linux-amd64.tar.gz /tmp
+ADD https://github.com/wal-g/wal-g/releases/download/${WALG_VERSION}/${RELEASE_FILE_NAME} /tmp
 RUN cd /tmp && \
-  tar -xvf wal-g.linux-amd64.tar.gz && \
-  mv wal-g /usr/local/bin && \
-  rm -rf wal-g.linux-amd64.tar.gz && \
-  apt-get update && apt-get install -y daemontools ca-certificates && \
+  tar -xvf ${RELEASE_FILE_NAME} && \
+  mv ${EXTRACTED_FILE_NAME} ${EXECUTABLE_DESTINATION} && \
+  rm -rf ${RELEASE_FILE_NAME} && \
+  apt-get update && \
+  apt-get install -y daemontools ca-certificates && \
   apt-get autoclean
 
 # Setup backup scripts
